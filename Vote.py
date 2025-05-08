@@ -62,7 +62,9 @@ def run_voting(options, max_voters=None):
             lanjut = input("Ingin melanjutkan voting? (Y/N): ").strip().upper()
             if lanjut != 'Y':
                 break
-    
+    if max_voters:
+        print(f"\nJumlah voting masuk: {voter_count}/{max_voters}")
+
     return vote_counts
 
 
