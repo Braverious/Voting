@@ -39,10 +39,11 @@ def run_voting(options, max_voters=None):
     voter_count = 0
 
     while True:
+        print(f"\nJumlah voting masuk: {voter_count}" + (f"/{max_voters}" if max_voters else ""))
         print("\nOpsi Voting:")
         for idx, option in enumerate(options, 1):
             print(f"{idx}. {option}")
-        
+
         try:
             choice = int(input("Pilih nomor opsi yang ingin Anda vote: "))
             if 1 <= choice <= len(options):
