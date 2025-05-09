@@ -14,7 +14,6 @@ def get_voting_options():
             print("Input tidak valid, silakan masukkan 'Y' atau 'N'.")
     return options
 
-
 def get_voting_mode():
     while True:
         mode = input("Apakah voting tanpa batas maksimum pemilih? (Y untuk tanpa batas, N untuk jumlah tetap): ").strip().upper()
@@ -68,11 +67,27 @@ def run_voting(options, max_voters=None):
 
     return vote_counts
 
-
 def show_results(vote_counts):
-    print("\nHasil Voting:")
+    print("\n=== Hasil Voting ===")
+    total_votes = sum(vote_counts.values())
+
+    if total_votes == 0:
+        print("Belum ada suara masuk.")
+        return
+
+    max_votes = max(vote_counts.values())
+    winners = [option for option, count in vote_counts.items() if count == max_votes]
     for option, count in vote_counts.items():
-        print(f"{option}: {count} suara")
+        percentage = (count / total_votes) * 100
+        print(f"{option}: {count} suara ({percentage:.2f}%)")
+
+    print("\n=== Pemenang ===")
+    if len(winners) == 1:
+        print(f"Pemenang: {winners[0]} dengan {max_votes} suara")
+    else:
+        print("Terjadi seri antara:")
+        for winner in winners:
+            print(f"- {winner} ({vote_counts[winner]} suara)")
 
 
 def main():
@@ -81,7 +96,6 @@ def main():
     max_voters = get_voting_mode()
     results = run_voting(options, max_voters)
     show_results(results)
-
 
 if __name__ == "__main__":
     main()
